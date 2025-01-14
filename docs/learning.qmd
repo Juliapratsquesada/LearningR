@@ -14,7 +14,29 @@ editor: visual
 
 ```{r setup}
 library(tidyverse)
+post_meal_data <- read_csv2(
+  here::here("data/post-meal-insulin.csv")
+)
+
 ```
+
+#csv reads data separated by ","
+#csv2 reads data separated by ";"
+
+## Showing the data 
+
+```{r}
+post_meal_data
+```
+
+# A nicer way of looking at the data is (according to Luke): 
+
+```{r}
+glimpse(post_meal_data)
+
+```
+
+
 ---
 
 ## About me
@@ -31,4 +53,9 @@ library(tidyverse)
 ---
 
 ## Testing for Git
-I like chocolate 
+- I don't like chocolate 
+
+---
+
+
+
