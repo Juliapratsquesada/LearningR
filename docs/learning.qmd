@@ -36,6 +36,7 @@ glimpse(post_meal_data)
 
 ```
 
+# Commit; we would not commit the data (so the .csv file) but in this case it is very small so we will commit everything. Normally we would not commit the html either because it is a temporary file. 
 
 ---
 
