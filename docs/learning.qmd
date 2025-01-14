@@ -1,0 +1,31 @@
+---
+title: "Reproducible document"
+author: "Julia Prats"
+format: html
+editor: visual
+---
+
+## Basics of R
+
+```{r}
+1 + 1
+```
+## Setup code chunk
+
+```{r setup}
+library(tidyverse)
+```
+---
+
+## About me
+- Júlia Prats, Center for Basic Metabolic Research, University of Copenhagen
+- **Position**: PhD student
+- *Proteomics*, *Skeletal Muscle*, *Metabolism*
+
+---
+
+## Simple code
+```{r}
+3 * 3
+```
+
