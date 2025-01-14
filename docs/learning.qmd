@@ -28,4 +28,7 @@ library(tidyverse)
 ```{r}
 3 * 3
 ```
+---
 
+## Testing for Git
+I like chocolate 
