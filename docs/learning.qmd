@@ -39,12 +39,13 @@ library(tidyverse)
 post_meal_data <- read_csv2(
   here::here("data/post-meal-insulin.csv")
 )
-
 ```
-#with the message and warning we are telling R to avoid including all the junk information we don't need. Don't include the code junk but still run it. There are other common options are: include, echo, results, eval - look in the course information. 
-#spaces are important in Rstudio
-#csv reads data separated by ","
-#csv2 reads data separated by ";"
+with the message and warning we are telling R to avoid including all the junk information we don't need. Don't include the code junk but still run it. There are other common options are: include, echo, results, eval - look in the course information. 
+spaces are important in Rstudio
+csv reads data separated by ","
+csv2 reads data separated by ";"
+
+---
 
 ## Showing the data 
 
@@ -52,16 +53,15 @@ post_meal_data <- read_csv2(
 post_meal_data
 ```
 
-# A nicer way of looking at the data is (according to Luke): 
+A nicer way of looking at the data is (according to Luke): 
 
 ```{r}
 glimpse(post_meal_data)
-
 ```
 
-#Commit; we would not commit the data (so the .csv file) but in this case it is very small so we will commit everything. Normally we would not commit the html either because it is a temporary file. 
+Commit; we would not commit the data (so the .csv file) but in this case it is very small so we will commit everything. Normally we would not commit the html either because it is a temporary file. 
 
-#By looking at the data there are a few things that can be improved:
+By looking at the data there are a few things that can be improved:
 1.Too similar names
 2.Too many IDs - what is the unique id
 3.Decimal places
@@ -76,9 +76,8 @@ glimpse(post_meal_data)
 help(colnames)
 
 ```{r}
-ggplot(post_meal_data, aes(x = BMI)) + 
+ggplot(post_meal_data, aes(x = BMI)) +
   geom_histogram()
-
 ```
 
 
@@ -86,17 +85,19 @@ ggplot(post_meal_data, aes(x = BMI)) +
 ```{r}
 #| fig-cap: "Distribution of BMI"
 #| label: fig-bmi-histo
-ggplot(post_meal_data, aes(x = BMI)) + 
+ggplot(post_meal_data, aes(x = BMI)) +
   geom_histogram()
 ```
-#You use "" when we are writing in natural language and no code language"@
-#If you want to reference in the text just write @ in front of label
+You use "" when we are writing in natural language and no code language"@
+If you want to reference in the text just write @ in front of label
 
 @fig-bmi-histo
 
-## 9.5 Exercise: discrete plots
+---
 
-```{r}
+## Exercise: discrete plots
+
+```{r group bar}
 #| fig-cap: "Group"
 #| label: fig-group-bar
 ggplot(post_meal_data, aes(x = Group)) +
@@ -105,7 +106,7 @@ ggplot(post_meal_data, aes(x = Group)) +
 
 See @fig-group-bar
 
-```{r}
+```{r glykemi bar}
 #| fig-cap: "glykemi"
 #| label: fig-glykemi-bar
 ggplot(post_meal_data, aes(x = glykemi)) +
@@ -114,3 +115,66 @@ ggplot(post_meal_data, aes(x = glykemi)) +
 
 See @fig-glykemi-bar
 
+If we want to plot two discrete variables we can try the following:
+Two different groups, are two different colors
+
+```{r}
+post_meal_data |>
+  ggplot(aes(x = Group, fill = as.character(glykemi))) +
+  geom_bar()
+```
+Two make it easier for the eyes to understand the data, we separate it side by side. 
+
+```{r}
+post_meal_data |>
+  ggplot(aes(x = Group, fill = as.character(glykemi))) +
+  geom_bar(position = position_dodge())
+```
+
+---
+
+## Putting two plots side by side
+
+```{r histogram}
+ggplot(post_meal_data, aes(x = BMI)) +
+  geom_histogram()
+```
+
+```{r bar}
+ggplot(post_meal_data, aes(x = glykemi)) +
+  geom_bar()
+```
+
+```{r side-by-side-figs}
+#| label: fig-bmi-glycemia
+#| fig-cap: "BMI and glycemia, side by side"
+#| fig-subcap:
+#| - "Distribution of BMI"
+#| - "Number of those with glycemia"
+#| layout-ncol: 2
+
+ggplot(post_meal_data, aes(x = BMI)) +
+  geom_histogram()
+
+ggplot(post_meal_data, aes(x = glykemi)) +
+  geom_bar()
+```
+
+
+## Using styler to fix code styling issues
+
+To fix the styling issues, we can use a package called styler, which follows the tidyverse style guide, to automatically reformat our code into the correct style.
+
+## Plotting two continuous variables
+
+```{r continuous variables}
+#| fig-cap: "Scatterplot showing BMI against AUC of blood glucose"
+#| label: fig-bmi-auc-pg
+ggplot(post_meal_data, aes(x = BMI, y = auc_pg)) +
+  geom_point() + 
+  geom_smooth()
+```
+
+geom_point(), create a standard scatterplot.
+geom_hex(), to replace geom_point() when your data are massive and creating points for each value takes too long to plot.
+geom_smooth(), applies a “regression-type” line to the data.
