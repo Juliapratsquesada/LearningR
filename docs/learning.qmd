@@ -10,34 +10,6 @@ editor: visual
 ```{r}
 1 + 1
 ```
-## Setup code chunk
-
-```{r setup}
-library(tidyverse)
-post_meal_data <- read_csv2(
-  here::here("data/post-meal-insulin.csv")
-)
-
-```
-
-#csv reads data separated by ","
-#csv2 reads data separated by ";"
-
-## Showing the data 
-
-```{r}
-post_meal_data
-```
-
-# A nicer way of looking at the data is (according to Luke): 
-
-```{r}
-glimpse(post_meal_data)
-
-```
-
-# Commit; we would not commit the data (so the .csv file) but in this case it is very small so we will commit everything. Normally we would not commit the html either because it is a temporary file. 
-
 ---
 
 ## About me
@@ -57,6 +29,42 @@ glimpse(post_meal_data)
 - I don't like chocolate 
 
 ---
+
+## Setup code chunk
+
+```{r setup}
+#| message: false
+#| warning: false
+library(tidyverse)
+post_meal_data <- read_csv2(
+  here::here("data/post-meal-insulin.csv")
+)
+
+```
+#with the message and warning we are telling R to avoid including all the junk information we don't need. Don't include the code junk but still run it. There are other common options are: include, echo, results, eval - look in the course information. 
+#spaces are important in Rstudio
+#csv reads data separated by ","
+#csv2 reads data separated by ";"
+
+## Showing the data 
+
+```{r}
+post_meal_data
+```
+
+# A nicer way of looking at the data is (according to Luke): 
+
+```{r}
+glimpse(post_meal_data)
+
+```
+
+#Commit; we would not commit the data (so the .csv file) but in this case it is very small so we will commit everything. Normally we would not commit the html either because it is a temporary file. 
+
+
+
+
+
 
 
 
