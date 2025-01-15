@@ -175,6 +175,4 @@ geom_point(), create a standard scatterplot.
 geom_hex(), to replace geom_point() when your data are massive and creating points for each value takes too long to plot.
 geom_smooth(), applies a “regression-type” line to the data.
 
-
-
-
+## Pushing changes to remote
