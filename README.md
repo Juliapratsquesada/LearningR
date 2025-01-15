@@ -3,6 +3,7 @@
 TODO: Give a brief description of what your project is about
 
 This project is about how to learn reproducible research in R. Trying GitHub
+Writing another random sentence to try
 
 # Brief description of folder and file contents
 
