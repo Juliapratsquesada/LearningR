@@ -30,18 +30,22 @@ format: html
 ## Setup code chunk
 
 ```{r setup}
+# with the message and warning we are telling R to avoid including all the junk information we don't need. Don't include the code junk but still run it. There are other common options are: include, echo, results, eval - look in the course information. 
 #| message: false
 #| warning: false
 library(tidyverse)
 post_meal_data <- read_csv2(
   here::here("data/post-meal-insulin.csv")
 )
-```
-with the message and warning we are telling R to avoid including all the junk information we don't need. Don't include the code junk but still run it. There are other common options are: include, echo, results, eval - look in the course information. 
-spaces are important in Rstudio
-csv reads data separated by ","
-csv2 reads data separated by ";"
 
+# csv reads data separated by ","
+# csv2 reads data separated by ";"
+
+# We create a smaller dataset, with only the variables that we want to study for now
+small_post_meal <- select(post_meal_data, id, Age, BMI, Group, auc_pg, auc_ins, glykemi)
+```
+
+spaces are important in Rstudio
 
 ## Showing the data 
 
@@ -178,3 +182,28 @@ geom_smooth(), applies a “regression-type” line to the data.
 ## Pushing changes to remote
 
 ## Pull changes locally
+
+## Selecting data 
+```{r}
+select(post_meal_data, Age)
+
+select(post_meal_data, Age, BMI, Weight)
+
+#All variables minus Group
+select(post_meal_data, -Group)
+```
+This last line shows all variables minus Group. If you check the columns there is only 84 instead of the 85 originally in the raw data
+
+```{r}
+# This one includes only those that start with "PG"
+select(post_meal_data, starts_with("PG"))
+```
+
+```{r}
+# All columns that end with "DXA"
+select(post_meal_data, ends_with("DXA"))
+
+# All columns containing the number "0"
+select(post_meal_data, contains("0"))
+```
+
