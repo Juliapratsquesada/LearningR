@@ -272,6 +272,80 @@ $ glykemi                  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 </div>
 </div>
 <p>#Commit; we would not commit the data (so the .csv file) but in this case it is very small so we will commit everything. Normally we would not commit the html either because it is a temporary file.</p>
+<p>#By looking at the data there are a few things that can be improved: 1.Too similar names 2.Too many IDs - what is the unique id 3.Decimal places 4.Order Ids 5.Different variables in one cell? Where are the units 6.There is two Fat.mass and two OGTT 7.Capital letters that don’t make sense 8.Separate datasets to avoid so many variables in one set</p>
+<p>?colnames help(colnames)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(post_meal_data, <span class="fu">aes</span>(<span class="at">x =</span> BMI)) <span class="sc">+</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="learning_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(post_meal_data, <span class="fu">aes</span>(<span class="at">x =</span> BMI)) <span class="sc">+</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-bmi-histo" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bmi-histo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="learning_files/figure-html/fig-bmi-histo-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bmi-histo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Distribution of BMI
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>#You use “” when we are writing in natural language and no code language”@ #If you want to reference in the text just write @ in front of label</p>
+<p><a href="#fig-bmi-histo" class="quarto-xref">Figure&nbsp;1</a></p>
+<section id="exercise-discrete-plots" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-discrete-plots">9.5 Exercise: discrete plots</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(post_meal_data, <span class="fu">aes</span>(<span class="at">x =</span> Group)) <span class="sc">+</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-group-bar" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-group-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="learning_files/figure-html/fig-group-bar-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-group-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Group
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>See <a href="#fig-group-bar" class="quarto-xref">Figure&nbsp;2</a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(post_meal_data, <span class="fu">aes</span>(<span class="at">x =</span> glykemi)) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-glykemi-bar" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-glykemi-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="learning_files/figure-html/fig-glykemi-bar-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-glykemi-bar-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: glykemi
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>See <a href="#fig-glykemi-bar" class="quarto-xref">Figure&nbsp;3</a></p>
+</section>
 </section>
 
 </main>

@@ -61,10 +61,56 @@ glimpse(post_meal_data)
 
 #Commit; we would not commit the data (so the .csv file) but in this case it is very small so we will commit everything. Normally we would not commit the html either because it is a temporary file. 
 
+#By looking at the data there are a few things that can be improved:
+1.Too similar names
+2.Too many IDs - what is the unique id
+3.Decimal places
+4.Order Ids
+5.Different variables in one cell? Where are the units
+6.There is two Fat.mass and two OGTT 
+7.Capital letters that don't make sense
+8.Separate datasets to avoid so many variables in one set
+
+
+?colnames
+help(colnames)
+
+```{r}
+ggplot(post_meal_data, aes(x = BMI)) + 
+  geom_histogram()
+
+```
 
 
 
+```{r}
+#| fig-cap: "Distribution of BMI"
+#| label: fig-bmi-histo
+ggplot(post_meal_data, aes(x = BMI)) + 
+  geom_histogram()
+```
+#You use "" when we are writing in natural language and no code language"@
+#If you want to reference in the text just write @ in front of label
 
+@fig-bmi-histo
 
+## 9.5 Exercise: discrete plots
 
+```{r}
+#| fig-cap: "Group"
+#| label: fig-group-bar
+ggplot(post_meal_data, aes(x = Group)) +
+  geom_bar()
+```
+
+See @fig-group-bar
+
+```{r}
+#| fig-cap: "glykemi"
+#| label: fig-glykemi-bar
+ggplot(post_meal_data, aes(x = glykemi)) +
+  geom_bar()
+```
+
+See @fig-glykemi-bar
 
