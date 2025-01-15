@@ -176,3 +176,5 @@ geom_hex(), to replace geom_point() when your data are massive and creating poin
 geom_smooth(), applies a “regression-type” line to the data.
 
 ## Pushing changes to remote
+
+## Pull changes locally
