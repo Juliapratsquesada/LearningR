@@ -30,7 +30,7 @@ format: html
 ## Setup code chunk
 
 ```{r setup}
-# with the message and warning we are telling R to avoid including all the junk information we don't need. Don't include the code junk but still run it. There are other common options are: include, echo, results, eval - look in the course information. 
+# with the message and warning we are telling R to avoid including all the junk information we don't need. Don't include the code junk but still run it. There are other common options are: include, echo, results, eval - look in the course information.
 #| message: false
 #| warning: false
 library(tidyverse)
@@ -131,7 +131,6 @@ post_meal_data |>
   geom_bar(position = position_dodge())
 ```
 
----
 
 ## Putting two plots side by side
 
@@ -165,13 +164,14 @@ ggplot(post_meal_data, aes(x = glykemi)) +
 
 To fix the styling issues, we can use a package called styler, which follows the tidyverse style guide, to automatically reformat our code into the correct style.
 
+
 ## Plotting two continuous variables
 
 ```{r continuous variables}
 #| fig-cap: "Scatterplot showing BMI against AUC of blood glucose"
 #| label: fig-bmi-auc-pg
 ggplot(post_meal_data, aes(x = BMI, y = auc_pg)) +
-  geom_point() + 
+  geom_point() +
   geom_smooth()
 ```
 
@@ -183,13 +183,14 @@ geom_smooth(), applies a “regression-type” line to the data.
 
 ## Pull changes locally
 
+
 ## Selecting data 
 ```{r}
 select(post_meal_data, Age)
 
 select(post_meal_data, Age, BMI, Weight)
 
-#All variables minus Group
+# All variables minus Group
 select(post_meal_data, -Group)
 ```
 This last line shows all variables minus Group. If you check the columns there is only 84 instead of the 85 originally in the raw data
@@ -207,3 +208,15 @@ select(post_meal_data, ends_with("DXA"))
 select(post_meal_data, contains("0"))
 ```
 
+## Renaming specific columns
+```{r renaming specific columns}
+small_post_meal |>
+  rename(auc_glucose = auc_pg)
+
+# To rename multiple variables
+small_post_meal |>
+  rename(
+    auc_glucose = auc_pg,
+    auc_insulin = auc_ins
+  )
+```
