@@ -2,7 +2,7 @@
 
 TODO: Give a brief description of what your project is about
 
-This project...
+This project is about how to learn reproducible research in R and Git
 
 # Brief description of folder and file contents
 
