@@ -43,6 +43,15 @@ post_meal_data <- read_csv2(
 
 # We create a smaller dataset, with only the variables that we want to study for now
 small_post_meal <- select(post_meal_data, id, Age, BMI, Group, auc_pg, auc_ins, glykemi)
+
+# We create a tidy data in which we rename some of the columns, then we only keep those which have glykemi = 0, and then remove the column glykemi
+tidier_post_meal_data <- small_post_meal |>
+  rename(
+    auc_glucose = auc_pg,
+    auc_insulin = auc_ins
+  ) |>
+  filter(glykemi == 0) |>
+  select(-glykemi)
 ```
 
 spaces are important in Rstudio
@@ -219,4 +228,50 @@ small_post_meal |>
     auc_glucose = auc_pg,
     auc_insulin = auc_ins
   )
+```
+
+
+## Select and rename tasks
+
+```{r Exercise select and rename}
+# Task 1.
+post_meal_data |>
+  select(contains("OGTT"))
+
+# Task 2.
+post_meal_data |>
+  select(contains(".."), -contains("...")) |>
+  rename(
+    P.Glucose.minus5.OGTT = P.Glucose..5.OGTT,
+    Insulin.minus5.OGTT.X = Insulin..5.OGTT.X
+  )
+
+# Task 3.
+post_meal_data |>
+  select(id, BMI, Length, Weight, Age) |>
+  rename(Height = Length)
+```
+
+
+## Filtering data by row
+
+```{r filtering data}
+small_post_meal |>
+  filter(glykemi == 1)
+
+small_post_meal |>
+  filter(BMI >= 25)
+
+small_post_meal |>
+  filter(Group == "CTR")
+```
+
+```{r}
+# "," or "&" mean AND. Only those that comply with these conditions will be included
+small_post_meal |>
+  filter(Group == "CTR", BMI >= 25)
+
+# "|" means OR, those that have one of the conditions will be included
+small_post_meal |>
+  filter(Group == "CTR" | BMI >= 25)
 ```
