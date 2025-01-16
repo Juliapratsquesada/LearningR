@@ -289,3 +289,23 @@ tidier_post_meal_data |>
 ```
 
 ## Practice with filter mutate
+
+```{r}
+post_meal_data |>
+  filter(BMI >= 20 & BMI <= 40 & Group == "FDR")
+```
+
+```{r}
+post_meal_data |>
+  mutate(
+    percent_body_fat = (Fat.mass.DXA / Weight) * 100
+  ) |>
+  filter(percent_body_fat > 30)
+```
+
+Use the select() function to select specific columns in a dataset.
+Use the rename() function to rename columns in a dataset.
+Use the filter() function to filter rows based on a logical condition.
+Use the mutate() function to modify existing or add new columns in a dataset.
+Use the pipe |> to write easy-to-read code, similar to reading a text consisting of multiple sentences.
+
