@@ -275,3 +275,17 @@ small_post_meal |>
 small_post_meal |>
   filter(Group == "CTR" | BMI >= 25)
 ```
+
+## Modify or add column
+
+```{r add/modify column}
+# At the beginning we add the new column, with the second we change the names inside the Group. If Group equals "CTR" we change the name to control, whatever is not "CTR" it is changed the "First-degree". The TRUE first, and then the FALSE.
+# Rename only change the column name. With mutate we can change the value of the column
+tidier_post_meal_data |>
+  mutate(
+    insulin_glucose_ratio = auc_insulin / auc_glucose,
+    Group = if_else(Group == "CTR", "Control", "First-degree relative")
+  )
+```
+
+## Practice with filter mutate
