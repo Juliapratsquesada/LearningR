@@ -9,14 +9,11 @@ format: html
 ```{r}
 1 + 1
 ```
----
 
 ## About me
 - Júlia Prats, Center for Basic Metabolic Research, University of Copenhagen
 - **Position**: PhD student
 - *Proteomics*, *Skeletal Muscle*, *Metabolism*
-
----
 
 ## Simple code
 ```{r}
@@ -28,6 +25,7 @@ format: html
 
 
 ## Setup code chunk
+We want to have all the new data at the beginning so it is the first thing to run when we run the whole code
 
 ```{r setup}
 # with the message and warning we are telling R to avoid including all the junk information we don't need. Don't include the code junk but still run it. There are other common options are: include, echo, results, eval - look in the course information.
@@ -52,6 +50,13 @@ tidier_post_meal_data <- small_post_meal |>
   ) |>
   filter(glykemi == 0) |>
   select(-glykemi)
+
+#We create a new data set with a few mutations
+tidied_post_meal_data <- tidier_post_meal_data |>
+  mutate(
+    insulin_glucose_ratio = auc_insulin / auc_glucose,
+    Group = if_else(Group == "CTR", "Control", "First-degree relative")
+  )
 ```
 
 spaces are important in Rstudio
@@ -281,7 +286,7 @@ small_post_meal |>
 ```{r add/modify column}
 # At the beginning we add the new column, with the second we change the names inside the Group. If Group equals "CTR" we change the name to control, whatever is not "CTR" it is changed the "First-degree". The TRUE first, and then the FALSE.
 # Rename only change the column name. With mutate we can change the value of the column
-tidier_post_meal_data |>
+tidied_post_meal_data <- tidier_post_meal_data |>
   mutate(
     insulin_glucose_ratio = auc_insulin / auc_glucose,
     Group = if_else(Group == "CTR", "Control", "First-degree relative")
@@ -290,12 +295,12 @@ tidier_post_meal_data |>
 
 ## Practice with filter mutate
 
-```{r}
+```{r exercise 1}
 post_meal_data |>
   filter(BMI >= 20 & BMI <= 40 & Group == "FDR")
 ```
 
-```{r}
+```{r exercise 2}
 post_meal_data |>
   mutate(
     percent_body_fat = (Fat.mass.DXA / Weight) * 100
@@ -308,4 +313,36 @@ Use the rename() function to rename columns in a dataset.
 Use the filter() function to filter rows based on a logical condition.
 Use the mutate() function to modify existing or add new columns in a dataset.
 Use the pipe |> to write easy-to-read code, similar to reading a text consisting of multiple sentences.
+
+
+## Visualizing with jitter plot
+```{r jitter plot}
+tidied_post_meal_data |>
+  mutate(overweight = if_else(BMI >= 25, "Overweight", "Not overweight")) |>
+  ggplot(aes(x = overweight, y = insulin_glucose_ratio)) +
+  geom_jitter(width = 1)
+```
+
+## Plotting three or more variables 
+
+```{r more variables}
+tidied_post_meal_data |>
+  filter(BMI < 30) |>
+  ggplot(aes(x = Age, y = auc_insulin, colour = Group)) + 
+  geom_point()
+  
+```
+
+```{r}
+tidied_post_meal_data |>
+  filter(BMI < 30) |>
+  mutate(young = if_else(Age < 40, "Youn", "Old")) |>
+  ggplot(aes(x = BMI, y = insulin_glucose_ratio, colour = Group)) +
+  geom_point() +
+  facet_grid(rows = vars(young)) +
+  labs(
+    x = "Body mass index (BMI)",
+    y = "Insulin to glucose ratio"
+  )
+```
 
