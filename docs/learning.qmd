@@ -51,7 +51,7 @@ tidier_post_meal_data <- small_post_meal |>
   filter(glykemi == 0) |>
   select(-glykemi)
 
-#We create a new data set with a few mutations
+# We create a new data set with a few mutations
 tidied_post_meal_data <- tidier_post_meal_data |>
   mutate(
     insulin_glucose_ratio = auc_insulin / auc_glucose,
@@ -328,15 +328,14 @@ tidied_post_meal_data |>
 ```{r more variables}
 tidied_post_meal_data |>
   filter(BMI < 30) |>
-  ggplot(aes(x = Age, y = auc_insulin, colour = Group)) + 
+  ggplot(aes(x = Age, y = auc_insulin, colour = Group)) +
   geom_point()
-  
 ```
 
 ```{r}
 tidied_post_meal_data |>
   filter(BMI < 30) |>
-  mutate(young = if_else(Age < 40, "Youn", "Old")) |>
+  mutate(young = if_else(Age < 40, "Young", "Old")) |>
   ggplot(aes(x = BMI, y = insulin_glucose_ratio, colour = Group)) +
   geom_point() +
   facet_grid(rows = vars(young)) +
@@ -346,3 +345,51 @@ tidied_post_meal_data |>
   )
 ```
 
+
+## Make multi-dimensional plots!
+
+```{r exercises}
+#| label: fig-multidimensional
+#| fig-cap: "Two, mult-dimensional plots of our data."
+#| fig-subcap:
+#|   - "Distribution of percent body fat by group and age category."
+#|   - "Relationship between BMI and bone mineral density, split by insulin sensitivity."
+#| layout-ncol: 2
+
+# Task 1.
+post_meal_data |>
+  mutate(
+    percent_body_fat = (Fat.mass.DXA / Weight) * 100,
+    young = if_else(Age < 40, "Young", "Old")
+  ) |>
+  ggplot(aes(x = Group, y = percent_body_fat, colour = young)) +
+  geom_jitter(width = 0.2)
+
+# Task 2.
+post_meal_data |>
+  mutate(
+    insulin_glucose_ratio = (auc_ins / auc_pg),
+    insulin_insensitive = if_else(insulin_glucose_ratio > mean(insulin_glucose_ratio), "Insensitive", "Sensitive")
+  ) |>
+  ggplot(aes(x = BMI, y = Bone.mineral.DXA, colour = insulin_insensitive)) +
+  geom_point() +
+  geom_smooth() +
+  facet_grid(cols = vars(insulin_insensitive))
+```
+
+## Changing colours
+
+```{r}
+post_meal_data |>
+  mutate(hyperglycemia = if_else(glykemi == 1, "Yes", "No")) |>
+  ggplot(aes(x = Group, fill = hyperglycemia)) +
+  geom_bar(position = position_dodge()) +
+  scale_fill_viridis_d(option = "cividis")
+# Because the variables are discrete, the function ends with _d
+
+post_meal_data |>
+  ggplot(aes(x = auc_pg, y = auc_ins, colour = BMI)) +
+  geom_point() +
+  scale_color_viridis_c(option = "inferno")
+# The _c at the end indicates the variable are continuous
+```
